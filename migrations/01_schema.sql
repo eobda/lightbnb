@@ -31,3 +31,12 @@ CREATE TABLE reservations (
   property_id INTEGER FOREIGN KEY REFERENCES properties(id),
   guest_id INTEGER FOREIGN KEY REFERENCES users(id)
 );
+
+CREATE TABLE property_reviews (
+  id SERIAL PRIMARY KEY NOT NULL,
+  guest_id INTEGER FOREIGN KEY REFERENCES users(id),
+  property_id INTEGER FOREIGN KEY REFERENCES properties(id),
+  reservation_id INTEGER FOREIGN KEY REFERENCES reservations(id),
+  rating SMALLINT,
+  message TEXT
+);
