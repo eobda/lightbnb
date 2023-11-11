@@ -68,14 +68,18 @@ const getAllReservations = function (guest_id, limit = 10) {
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function (options, limit = 10) {
-  // const limitedProperties = {};
+  const limitedProperties = {};
   // for (let i = 1; i <= limit; i++) {
   //   limitedProperties[i] = properties[i];
   // }
   // return Promise.resolve(limitedProperties);
 
-  const queryString = ``;
-  const values = [];
+  const queryString = `
+    SELECT *
+    FROM properties
+    LIMIT $1
+  `;
+  const values = [limit];
 
   pool.query(queryString, values)
   .then((result) => {
