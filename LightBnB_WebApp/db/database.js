@@ -100,7 +100,7 @@ const getAllProperties = function (options, limit = 10) {
   const queryString = `
     SELECT *
     FROM properties
-    LIMIT $1
+    LIMIT $1;
   `;
   const values = [limit];
 
