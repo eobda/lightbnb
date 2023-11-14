@@ -17,15 +17,6 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function (email) {
-  // let resolvedUser = null;
-  // for (const userId in users) {
-  //   const user = users[userId];
-  //   if (user && user.email.toLowerCase() === email.toLowerCase()) {
-  //     resolvedUser = user;
-  //   }
-  // }
-  // return Promise.resolve(resolvedUser);
-
   const queryString = `
   SELECT *
   FROM users
