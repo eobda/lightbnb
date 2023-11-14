@@ -115,7 +115,7 @@ const getAllReservations = function (guest_id, limit = 10) {
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function (options, limit = 10) {
-  const queryParam = [];
+  const queryParams = [];
 
   let queryString = `
     SELECT properties.*, AVG(property_reviews.rating) AS average_rating
@@ -125,14 +125,14 @@ const getAllProperties = function (options, limit = 10) {
 
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `WHERE CITY LIKE $${queryParams.length}`;
+    queryString += `WHERE city LIKE $${queryParams.length}`;
   }
 
   queryParams.push(limit);
   queryString += `
     GROUP BY properties.id
     ORDER BY cost_per_night
-    LIMIT $${queryParams.limit};
+    LIMIT $${queryParams.length};
   `
 
   console.log(queryString, queryParams);
