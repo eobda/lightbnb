@@ -123,9 +123,14 @@ const getAllProperties = function (options, limit = 10) {
     JOIN property_reviews ON properties.id = property_id
   `;
 
+  // Add "WHERE" to query if any options are present
+  if (options.city || options.owner_id || options.minimum_price_per_night || options.maximum_price_per_night || options.minimum_rating) {
+    queryString += `WHERE `;
+  }
+
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `WHERE city LIKE $${queryParams.length}`;
+    queryString += `city LIKE $${queryParams.length}`;
   }
 
   queryParams.push(limit);
