@@ -135,11 +135,11 @@ const getAllProperties = function (options, limit = 10) {
 
   if (options.owner_id) {
     // Check if there are already queryParams present
-    if (queryParams) {
+    if (queryParams.length > 0) {
       queryString += ` AND `;
     }
-    queryParams.push(`%${options.owner_id}%`);
-    queryString += `owner_id LIKE $${queryParams.length}`;
+    queryParams.push(Number(options.owner_id));
+    queryString += `owner_id = $${queryParams.length}`;
   }
 
   queryParams.push(limit);
