@@ -20,7 +20,7 @@ const getUserWithEmail = function (email) {
   const queryString = `
   SELECT *
   FROM users
-  WHERE email LIKE $1
+  WHERE email LIKE $1;
   `;
   const values = [`%${email}%`];
 
@@ -42,7 +42,7 @@ const getUserWithId = function (id) {
   const queryString = `
   SELECT *
   FROM users
-  WHERE id = $1
+  WHERE id = $1;
   `;
   const values = [id];
 
