@@ -13,8 +13,6 @@ const pool = new Pool({
 
 /**
  * Get a single user from the database given their email.
- * @param {String} email The email of the user.
- * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function (email) {
   const queryString = `
@@ -35,8 +33,6 @@ const getUserWithEmail = function (email) {
 
 /**
  * Get a single user from the database given their id.
- * @param {string} id The id of the user.
- * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function (id) {
   const queryString = `
@@ -57,8 +53,6 @@ const getUserWithId = function (id) {
 
 /**
  * Add a new user to the database.
- * @param {{name: string, password: string, email: string}} user
- * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function (user) {
   const queryString = `
@@ -81,11 +75,8 @@ const addUser = function (user) {
 
 /**
  * Get all reservations for a single user.
- * @param {string} guest_id The id of the user.
- * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function (guest_id, limit = 10) {
-  // return getAllProperties(null, 2);
   const queryString = `
   SELECT properties.*, reservations.start_date, reservations.end_date, AVG(property_reviews.rating) AS average_rating
   FROM reservations
@@ -111,9 +102,6 @@ const getAllReservations = function (guest_id, limit = 10) {
 
 /**
  * Get all properties.
- * @param {{}} options An object containing query options.
- * @param {*} limit The number of results to return.
- * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function (options, limit = 10) {
   const queryParams = [];
@@ -189,8 +177,6 @@ const getAllProperties = function (options, limit = 10) {
 
 /**
  * Add a property to the database
- * @param {{}} property An object containing all of the property details.
- * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
   const queryParams = [];
