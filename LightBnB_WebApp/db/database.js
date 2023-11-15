@@ -199,14 +199,36 @@ const addProperty = function (property) {
 
   const queryParams = [];
 
-  let queryString = `
-  INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms)
-  VALUES (
-  `;
+  const keys = Object.keys(property);
+  console.log(keys);
 
-  for (const key in property) {
+  let queryString = `
+  INSERT INTO properties (
+    title,
+    description,
+    number_of_bedrooms,
+    number_of_bathrooms,
+    parking_spaces,
+    cost_per_night,
+    thumbnail_photo_url,
+    cover_photo_url,
+    street,
+    country,
+    city,
+    province,
+    post_code,
+    owner_id)
+  VALUES (`;
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
     queryParams.push(property[key]);
-    queryString += `$${queryParams.length}, `; // fencepost - will need to be fixed
+    queryString += `$${queryParams.length}`;
+
+    // fix fencepost problem - final value
+    if (i < keys.length - 1) {
+      queryString += `, `;
+    }
   }
 
   queryString += `)
