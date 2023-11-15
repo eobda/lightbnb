@@ -22,9 +22,9 @@ const getUserWithEmail = function (email) {
   FROM users
   WHERE email LIKE $1;
   `;
-  const values = [`%${email}%`];
+  const queryParams = [`%${email}%`];
 
-  return pool.query(queryString, values)
+  return pool.query(queryString, queryParams)
   .then((result) => {
     return result.rows[0];
   })
@@ -44,9 +44,9 @@ const getUserWithId = function (id) {
   FROM users
   WHERE id = $1;
   `;
-  const values = [id];
+  const queryParams = [id];
 
-  return pool.query(queryString, values)
+  return pool.query(queryString, queryParams)
   .then((result) => {
     return result.rows[0];
   })
@@ -66,9 +66,9 @@ const addUser = function (user) {
   VALUES ($1, $2, $3)
   RETURNING *;
   `;
-  const values = [user.name, user.email, user.password];
+  const queryParams = [user.name, user.email, user.password];
 
-  return pool.query(queryString, values)
+  return pool.query(queryString, queryParams)
   .then((result) => {
     return result.rows[0];
   })
@@ -95,9 +95,9 @@ const getAllReservations = function (guest_id, limit = 10) {
   ORDER BY reservations.start_date
   LIMIT $2;
   `;
-  const values = [guest_id, limit];
+  const queryParams = [guest_id, limit];
 
-  return pool.query(queryString, values)
+  return pool.query(queryString, queryParams)
   .then((result) => {
     return result.rows;
   })
