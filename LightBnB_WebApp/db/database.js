@@ -192,15 +192,8 @@ const getAllProperties = function (options, limit = 10) {
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  // const propertyId = Object.keys(properties).length + 1;
-  // property.id = propertyId;
-  // properties[propertyId] = property;
-  // return Promise.resolve(property);
-
   const queryParams = [];
-
   const keys = Object.keys(property);
-  console.log(keys);
 
   let queryString = `
   INSERT INTO properties (
@@ -225,7 +218,7 @@ const addProperty = function (property) {
     queryParams.push(property[key]);
     queryString += `$${queryParams.length}`;
 
-    // fix fencepost problem - final value
+    // Add to all values except for final value
     if (i < keys.length - 1) {
       queryString += `, `;
     }
@@ -234,8 +227,6 @@ const addProperty = function (property) {
   queryString += `)
   RETURNING *;
   `;
-
-  console.log(queryString, queryParams);
 
   return pool.query(queryString, queryParams)
   .then((result) => {
