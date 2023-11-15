@@ -151,6 +151,15 @@ const getAllProperties = function (options, limit = 10) {
     queryString += `cost_per_night > $${queryParams.length}`;
   }
 
+  if (options.maximum_price_per_night) {
+    // Check if there are already queryParams present
+    if (queryParams.length > 0) {
+      queryString += ` AND `;
+    }
+    queryParams.push(Number(options.maximum_price_per_night * 100));
+    queryString += `cost_per_night < $${queryParams.length}`;
+  }
+
   queryParams.push(limit);
   queryString += `
     GROUP BY properties.id
