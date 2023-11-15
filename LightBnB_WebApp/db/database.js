@@ -124,7 +124,7 @@ const getAllProperties = function (options, limit = 10) {
   `;
 
   // Add "WHERE" to query if any options are present
-  if (options.city || options.owner_id || options.minimum_price_per_night || options.maximum_price_per_night || options.minimum_rating) {
+  if (options.city || options.owner_id || options.minimum_price_per_night || options.maximum_price_per_night) {
     queryString += `WHERE `;
   }
 
@@ -160,12 +160,20 @@ const getAllProperties = function (options, limit = 10) {
     queryString += `cost_per_night < $${queryParams.length}`;
   }
 
-  queryParams.push(limit);
   queryString += `
     GROUP BY properties.id
+  `;
+
+  if (options.minimum_rating) {
+    queryParams.push(Number(options.minimum_rating));
+    queryString += `HAVING AVG(property_reviews.rating) >= $${queryParams.length}`;
+  }
+
+  queryParams.push(limit);
+  queryString += `
     ORDER BY cost_per_night
     LIMIT $${queryParams.length};
-  `
+  `;
 
   console.log(queryString, queryParams);
 
